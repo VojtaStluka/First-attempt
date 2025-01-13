@@ -38,7 +38,7 @@ print(odmocnina(num))
 
 print(mapa)
 
-'''lass Seznam:
+class Seznam:
     def __init__(self,cislo:int,dalsi:"Seznam"):
         self.cislo=cislo    #tvoří si spojový seznam navázaný na okolní hodnotu
         self.dalsi=dalsi
@@ -59,5 +59,5 @@ class Spojovyseznam:
         while acc<idx:
             actual=actual.dalsi
             acc+=1  
-        return actual'''
+        return actual
     
