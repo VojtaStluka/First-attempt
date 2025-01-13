@@ -44,10 +44,11 @@ class Ordinace:
         self.pacienti=pacienti
         self.max_obsazeni=max_obsazeni
 
-    def prida_pacienta(self,pacient):
+    def prida_pacienta(self,pacient):       
         x=len(self.pacienti)
         if (x>self.max_obsazeni):
             raise Exception("Příliš mnoho!")
+        self.pacienti.append(pacient)
 
 
 
@@ -115,7 +116,7 @@ def generuj_nemocnici(tisk: bool, pocet_ordinaci) -> Nemocnice:
             print()
     return nemocnice
 
-nemocnice = generuj_nemocnici(True, 4)
+nemocnice = generuj_nemocnici(False, 4)
 
 """
 *Pacient*
