@@ -36,13 +36,20 @@ class Lekar:
     specializace: Specializace
     zkusenosti: ZkusenostLekare
 
-@dataclass
 class Ordinace:
-    specializace: Specializace
-    hlavni_lekar: Lekar
-    pomocny_lekar: Lekar
-    pacienti: list[Pacient]
-    max_obsazeni: int
+    def __init__(self,specializace:Specializace,hlavni_lekar: Lekar,pomocny_lekar: Lekar,pacienti: list[Pacient],max_obsazeni: int):
+        self.specializace=specializace
+        self.hlavni_lekar=hlavni_lekar
+        self.pomocny_lekar=pomocny_lekar
+        self.pacienti=pacienti
+        self.max_obsazeni=max_obsazeni
+
+    def prida_pacienta(self,pacient):
+        x=len(self.pacienti)
+        if (x>self.max_obsazeni):
+            raise Exception("Příliš mnoho!")
+
+
 
 
 @dataclass
@@ -128,6 +135,8 @@ nemocnice = generuj_nemocnici(True, 4)
 - pomocný lékař
 *Nemocnice*
 - seznam ordinací
+
+
 *Dynamika*
 - ordinaci předěláme na normální třídu
 - na ordinaci bychom chtěli následující metody:
