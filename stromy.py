@@ -1,7 +1,6 @@
 from __future__ import annotations #řeší definování v definici (Uzel in Uzel)
 from dataclasses import dataclass
 
-
 @dataclass
 class Uzel:
     operace: str
