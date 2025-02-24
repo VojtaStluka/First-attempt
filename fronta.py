@@ -5,7 +5,7 @@ class Uloha:
     file:str
     user:str
 
-class Printer():
+class Printer():    #fronta
     def __init__(self):
         self.f=deque()
 
@@ -30,3 +30,28 @@ printer.enqueue("tabulka.xls", "Karel")
 printer.enqueue("referat.docx", "Lida")
 printer.enqueue("dovolena.jpeg", "Rudolf")
 printer.print_all()
+
+class Browse_history(): #zásobník
+    def __init__(self):
+        self.historie = deque()
+        self.budoucnost = deque()
+        self.aktualni=""
+    def open_page(self,url):
+        self.historie.append(url)
+        self.aktualni=url
+    def go_back(self):
+        self.budoucnost.append(self.aktualni)
+        self.aktualni=self.historie.pop()
+        print(self.aktualni)
+    def go_forward(self):
+        self.historie.append(self.aktualni)
+        self.aktualni=self.budoucnost.pop()
+        print(self.aktualni)
+        
+g=Browse_history()
+g.open_page('Google')
+g.open_page('Chrome')
+g.open_page('Mozzila')
+g.go_back()
+g.go_back()
+g.go_forward()
