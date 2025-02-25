@@ -18,6 +18,9 @@ class Facebook:
         user2_uzel=self._users[jmeno2]
         user1_uzel.znamost.append(user2_uzel)
         user2_uzel.znamost.append(user1_uzel)
+        
+    def jak_daleko(name1, name2) -> None:
+        ...
 
 # Vytvoření instance Facebooku
 fb = Facebook()
@@ -46,6 +49,3 @@ znamosti = [("Adam", "Beata"), ("Adam", "Cyril"), ("Beata", "Dana"),
 # Vkládání známostí do Facebooku
 for clovek1, clovek2 in znamosti:
     fb.pridej_znamost(clovek1, clovek2)
-
-
-print("Ahoj")
