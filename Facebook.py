@@ -23,10 +23,10 @@ class Facebook:
         if jmeno1 == jmeno2:
             return 0  # Pokud jsou to stejní lidé, vzdálenost je 0
         
-        # Fronta pro BFS, každá položka bude obsahovat (uživatel, vzdálenost)
+        # Fronta pro BFS, každá položka bude obsahovat (uživatel, vzdálenost), prohledá vždy šířku jedné vrstvy známostí
         queue = deque([(self._users[jmeno1], 0)])  #list jména a vzdálenosti
         # Množina pro návštěvu (abychom se nevraceli zpět na již navštívené uživatele)
-        visited = set([name1]) #funkce set() vždy má pouze jednou konkrétní hodnotu
+        visited = set([name1]) #funkce set() vždy má ve svém seznamu pouze jedinou konkrétní hodnotu
         
         while queue:
             current_user, distance = queue.popleft()    # z listu bude jménu pod proměnnou current_user a vzdálenost v distance
