@@ -1,5 +1,5 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from collections import deque
 
 class Uzivatel:
     def __init__(self,jmeno) -> None:
