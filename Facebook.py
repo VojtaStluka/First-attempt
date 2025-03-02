@@ -23,22 +23,20 @@ class Facebook:
         if jmeno1 == jmeno2:
             return 0  # Pokud jsou to stejní lidé, vzdálenost je 0
         
-        # Fronta pro BFS, každá položka bude obsahovat (uživatel, vzdálenost), prohledá vždy šířku jedné vrstvy známostí
-        queue = deque([(self._users[jmeno1], 0)])  #list jména a vzdálenosti
+        # Fronta pro BFS, každá položka bude obsahovat (uživatel, vzdálenost), prohledá vždy do šířky jednu vrstvy známostí
+        fronta = deque([(self._users[jmeno1], 0)])  #list jména a vzdálenosti
         # Množina pro návštěvu (abychom se nevraceli zpět na již navštívené uživatele)
-        visited = set([name1]) #funkce set() vždy má ve svém seznamu pouze jedinou konkrétní hodnotu
+        visited = set([jmeno1]) #funkce .set() obsahuje vždy jedinou konkrétní hodnotu
         
-        while queue:
-            current_user, distance = queue.popleft()    # z listu bude jménu pod proměnnou current_user a vzdálenost v distance
-            
-            # Procházení všech známých uživatelů
-            for neighbor in current_user.znamost:
-                if neighbor.jmeno == jmeno2:
+        while fronta:
+            current_user, distance = fronta.popleft()    # z listu bude jménu pod proměnnou current_user a vzdálenost v distance
+            print(current_user)
+            for soused in current_user.znamost:     # Procházení všech známých uživatelů
+                if soused.jmeno == jmeno2:
                     return distance + 1      # Našli jsme jméno name2, vrátíme vzdálenost, tzn. přímo přítel; fronta je tímto prázdná
-                if neighbor.jmeno not in visited: # Jestliže není v seznamu již prošlých lidí
-                    visited.add(neighbor.jmeno) #Přidáme
-                    queue.append((neighbor, distance + 1)) #Vrátíme zpět do fronty, čili cyklus se opakuje a máme vzdálenost >1
-        
+                if soused.jmeno not in visited: # Jestliže není v seznamu již prošlých lidí
+                    visited.add(soused.jmeno) #Přidáme
+                    fronta.append((soused, distance + 1)) #Vrátíme zpět do fronty, čili cyklus se opakuje a máme vzdálenost >1     
         return None  # Pokud jsme nenašli propojení
 
 # Vytvoření instance Facebooku
@@ -70,5 +68,5 @@ for clovek1, clovek2 in znamosti:
     fb.pridej_znamost(clovek1, clovek2)
 
 #Zkouška funkčnosti
-vzdalenost = fb.jak_daleko("Adam", "Dana")
+vzdalenost = fb.jak_daleko("Adam", "Cecilie")
 print(vzdalenost) 
