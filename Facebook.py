@@ -30,7 +30,6 @@ class Facebook:
         
         while fronta:
             current_user, distance = fronta.popleft()    # z listu bude jménu pod proměnnou current_user a vzdálenost v distance
-            print(current_user)
             for soused in current_user.znamost:     # Procházení všech známých uživatelů
                 if soused.jmeno == jmeno2:
                     return distance + 1      # Našli jsme jméno name2, vrátíme vzdálenost, tzn. přímo přítel; fronta je tímto prázdná
