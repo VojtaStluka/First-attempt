@@ -22,10 +22,11 @@ class Graph:
 
         
     def find_shortest_path(self, from_city: str, to_city: str) -> int:
-        fronta=list[tuple[Mesto,int]]=[]
+        fronta=list[tuple[Mesto,Mesto]]=[]
         m = self._mesta[from_city]
-        for (nazev,mesto) in self._mesta:
-            fronta.append
+        for mesto in self._mesta:
+            fronta.append([mesto,self.soused])
+            visited = set([mesto])
         
 def init_distances() -> Graph:
         graph = Graph()
