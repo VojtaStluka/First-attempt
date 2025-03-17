@@ -27,6 +27,32 @@ class Graph:
         for mesto in self._mesta:
             fronta.append([mesto,self.soused])
             visited = set([mesto])
+
+@dataclass
+class Element:
+    value:object
+    priority:int
+
+class PriorityQueue:
+    def __init__(self):
+        self.seznam=[]
+
+    def push(self,*element:int):
+        self.seznam.append(element)
+        idx=len(self.seznam)-1
+        dite=element
+        if idx > 1:
+            while True:
+                if self.seznam[idx] < self.seznam[((idx-1)//2)]:
+                    element [idx-1//2] = element [idx]
+        print (self.seznam)
+
+        
+    def pop():
+        ...
+
+a=PriorityQueue()
+a.push(4,6,3,1,5)
         
 def init_distances() -> Graph:
         graph = Graph()
