@@ -37,22 +37,25 @@ class PriorityQueue:
     def __init__(self):
         self.seznam=[]
 
-    def push(self,*element:int):
-        self.seznam.append(element)
-        idx=len(self.seznam)-1
-        dite=element
-        if idx > 1:
-            while True:
-                if self.seznam[idx] < self.seznam[((idx-1)//2)]:
-                    element [idx-1//2] = element [idx]
-        print (self.seznam)
-
-        
+   def push (self, prvek):
+       self.seznam.append(prvek)
+       idx=len(self.seznam)
+       dite=prvek
+       if idx>1:
+           while True:
+               idx_rodic = (idx -1) // 2
+               rodic = self.seznam[idx_rodic]
+               if rodic.priority > dite.priority:
+                   self.seznam[idx_dite] = rodic
+                   self.seznam[idx_rodic] = dite
+                   idx_dite = idx_rodic
+               else:
+                   break      
     def pop():
         ...
 
 a=PriorityQueue()
-a.push(4,6,3,1,5)
+a.push(4)
         
 def init_distances() -> Graph:
         graph = Graph()
