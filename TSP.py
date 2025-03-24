@@ -28,7 +28,7 @@ def vyzkousej_cesty(graph,start,dosud_projitcesta:Cesta):
             continue # už nebude pokračovat dál ve for cyklu
         cesta_do_souseda=Cesta(dosud_projitcesta.mesta+[soused],dosud_projitcesta.delka+vzdalenost) #[] spojoje dva seznamy a tvoří jeden
         if len(cesta_do_souseda.mesta)==graph.kolik_mest():
-            ...            
+           graph.existuje_cesta(soused,cesta_do_souseda.mesta[0])            
         vyzkousej_cesty(graph,soused,cesta_do_souseda)
 
 def load_europe() -> Graph:
