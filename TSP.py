@@ -1,35 +1,58 @@
-from this import d
 from typing import List, Tuple
 from dataclasses import dataclass
+from __future__ import annotations 
+
+
+@dataclass
+class Mesto:
+    nazev:str
+    sousede:list[tuple[str,int]]
+
+
 class Graph:
     
     def __init__(self) -> None:
-        self.cities : set[str] = set()
+        self.cities : dict[str,Mesto] = {}
+
+    def _jednostranne_pridani_mesta(self, from_city: str, to_city: str,distance: int):
+            if from_city not in self.cities:
+                self.cities[from_city]= Mesto(from_city,[])
+            self.cities[from_city].sousede.append((to_city,distance))
     
     def new_edge(self, from_city: str, to_city: str, distance: int) -> None:
-        ...
+        self._jednostranne_pridani_mesta(from_city, to_city)
+        if from_city not in self.cities:
+            self.cities[from_city]= Mesto(from_city,[])
+        self.cities[from_city].sousede.append((to_city,distance))
+        self.cities[to_city].sousede.append((from_city,distance))
     
     def vrat_sousedy(self,z_mesta):
-        ...
+        return self.cities[z_mesta].sousede
 
     def kolik_mest(self):
-        ...
-
+        return len(self.cities)
+    
 @dataclass
 class Cesta:
     mesta:List[str]
     delka:int
+    def pridej_mesto(self,dalsi_mesto,vzdalenost) -> Cesta:
+        return Cesta(self.mesta+[dalsi_mesto],self.delka+vzdalenost) #[] spojoje dva seznamy a tvoří jeden
 
-
-def vyzkousej_cesty(graph,start,dosud_projitcesta:Cesta):
-    sousedi:Tuple=graph.vrat_sousedy(start)
+reseni:list[Cesta]
+def vyzkousej_cesty(graph,dosud_projitcesta:Cesta):
+    global reseni
+    sousedi=graph.vrat_sousedy(dosud_projitcesta[-1]) #vezme poslední prvek v seznamu díky zápornému indexu
     for soused,vzdalenost in sousedi:
         if soused in dosud_projitcesta.mesta:
             continue # už nebude pokračovat dál ve for cyklu
-        cesta_do_souseda=Cesta(dosud_projitcesta.mesta+[soused],dosud_projitcesta.delka+vzdalenost) #[] spojoje dva seznamy a tvoří jeden
-        if len(cesta_do_souseda.mesta)==graph.kolik_mest():
-           graph.existuje_cesta(soused,cesta_do_souseda.mesta[0])            
-        vyzkousej_cesty(graph,soused,cesta_do_souseda)
+        cesta_do_souseda=dosud_projitcesta.pridej_mesto(soused, vzdalenost)
+        if len(cesta_do_souseda.mesta)==graph.kolik_mest(): #může být kandidát na řešení?
+            if graph.existuje_cesta(soused,cesta_do_souseda.mesta[0]):  #kontroluje, zda se můžeme vrátit do výchozího       
+                    reseni.append(cesta_do_souseda)
+        else: 
+            vyzkousej_cesty(graph,cesta_do_souseda)
+        
 
 def load_europe() -> Graph:
     graph = Graph()
