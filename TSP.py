@@ -1,8 +1,47 @@
 from typing import List, Tuple
 from dataclasses import dataclass
 from __future__ import annotations 
+import heapq
 
+#Chat verze
+def dijkstra(graph, start):
+    # Create a priority queue to store the nodes and their tentative distances
+    pq = [(0, start)]  # (distance, node)
+    
+    # Create a dictionary to store the shortest distance to each node
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    
+    while pq:
+        # Get the node with the smallest distance
+        current_distance, current_node = heapq.heappop(pq)
+        
+        # If the current distance is greater than the recorded distance, skip it
+        if current_distance > distances[current_node]:
+            continue
+        
+        # Explore each neighbor of the current node
+        for neighbor, weight in graph[current_node]:
+            distance = current_distance + weight
+            
+            # If a shorter path to the neighbor is found, update the distance
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(pq, (distance, neighbor))
+    
+    return distances
 
+# Example usage:
+graph = {
+    'A': [('B', 1), ('C', 4)],
+    'B': [('A', 1), ('C', 2), ('D', 5)],
+    'C': [('A', 4), ('B', 2), ('D', 1)],
+    'D': [('B', 5), ('C', 1)]
+}
+start_node = 'A'
+print(dijkstra(graph, start_node))
+
+#nase verze
 @dataclass
 class Mesto:
     nazev:str
