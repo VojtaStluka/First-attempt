@@ -58,3 +58,36 @@ def encrypt_with_key(text,key):
     return vysledek
 
 print(encrypt_with_key("ahoj jak se mas","prezident"))
+
+klic=b"arcibiskupskegymnazium"  #b z toho udělá sekvenmci čísel
+soubor=open("test.pdf","rb")
+obsah = soubor.read()
+
+idx=0
+
+delka=len(klic)
+sifrovany_obsah=bytearray()
+for b in obsah:
+    sb = (b+klic[idx%delka])%256
+    sifrovany_obsah.append(sb)
+    idx+=1
+sifrovany_soubor = open("test-sifrovany.bin","wb")
+sifrovany_soubor.write(sifrovany_obsah)
+soubor.close()
+sifrovany_soubor.close()
+
+
+
+k_desifrovani=open("test-sifrovany.bin","rb")
+des_obsah=k_desifrovani.read()
+
+desifrovany_obsah=bytearray()
+idx=0
+for b in des_obsah:
+    sb = (b-klic[idx%delka])%256
+    desifrovany_obsah.append(sb)
+    idx+=1
+desifrovany_soubor = open("desifrovany.pdf","wb")
+desifrovany_soubor.write(desifrovany_obsah)
+k_desifrovani.close()
+desifrovany_soubor.close()
