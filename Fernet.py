@@ -24,3 +24,52 @@ encrypted_message=fernet.encrypt(message)
 print(encrypted_message)
 decrypted=fernet.decrypt(encrypted_message)
 print(decrypted.decode())
+
+
+
+
+
+#test
+#base64
+text='alkohol, to je prevít'
+bytovany=text.encode()
+kodovany_b64=base64.b64encode(bytovany)
+
+
+
+#Fernet
+key=Fernet.generate_key()
+def encrypt_file(key,in_file:str,out_file:str):
+    
+    file=open(in_file,'rb')
+    data=file.read()
+
+    fernet=Fernet(key)      
+    new_obsah=fernet.encrypt(data)
+    
+    new_file=open(out_file,'wb')
+    new_file.write(new_obsah)
+
+    file.close()
+    new_file.close()
+
+
+in_file='Desktop/tree.png'
+out_file='Desktop/zasifrovany.png'
+a=encrypt_file(key,in_file,out_file)
+    
+def decrypt_file(key,in_file:str,out_file:str):
+
+    file=open(in_file,'rb')
+    data=file.read()
+
+    fernet=Fernet(key)      
+    new_obsah=fernet.decrypt(data)
+    
+    new_file=open(out_file,'wb')
+    new_file.write(new_obsah)
+
+    file.close()
+    new_file.close()
+
+b=decrypt_file(key,'Desktop/zasifrovany.png','Desktop/n_tree.png') #třetí nápověda: "Klíč nemá jinou možnost, než být globální"
